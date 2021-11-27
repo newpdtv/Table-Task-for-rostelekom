@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=	, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&family=Poppins&display=swap" rel="stylesheet">
+	<title>Table task</title>
+	<link rel = "stylesheet" href = "style.css">
+
+</head>
+<body>
+
+	<div style="margin-left: 20px; margin-top: 20px; margin-bottom: 20px;" class = "table_buttons">
+		<button onclick = "AddRow()">Добавить строку</button>
+		<button onclick="DeleteRow()">Удалить строку</button>
+		<button type="button" onclick="UpdateRow()">Изменить ячейку</button>
+		<button type="button" onclick="RenderTable()">Сгенерировать таблицу</button>
+	</div>
+	<div id = "table" style = "margin-top: 20px; margin-left: 20px;"></div>
+	<div style = "margin-top: 20px; margin-left: 20px;">
+		  	<table id = "table1">
+			  	<thead class = "simple_thead">
+				    <tr>
+				      <th scope = "col">Pet</th>
+				      <th scope = "col">Name</th>	
+				    </tr>
+			  	</thead>
+			  	<tbody>
+				    <tr>
+				      <td>Cat</td>
+				      <td>Murzik</td>
+				    </tr>
+				    <tr>
+				      <td>Dog</td>
+				      <td>Bobik</td>
+				    </tr>
+				    <tr>
+				      <td>Bird</td>
+				      <td>Nikolay</td>
+				    </tr>
+			  	</tbody>
+			</table>
+		</div>
+		<div class = "thetextofdefeat">
+			<p>
+				Удалось только создать метод, который генерирует таблицу из данных в массиве, но создать методы, которые работают со сгенерированной таблицой не удалось. Поэтому я создал таблицу, используя HTML и написал методы для этой HTML таблицы.
+			</p>
+		</div>
+<script src = "script.js"></script>		
+</body>
+
+</html>
