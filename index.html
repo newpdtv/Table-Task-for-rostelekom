@@ -12,37 +12,11 @@
 </head>
 <body>
 
-	<div style="margin-left: 20px; margin-top: 20px; margin-bottom: 20px;" class = "table_buttons">
-		<button onclick = "AddRow()">Добавить строку</button>
-		<button onclick="DeleteRow()">Удалить строку</button>
-		<button type="button" onclick="UpdateRow()">Изменить ячейку</button>
-		<button type="button" onclick="RenderTable()">Сгенерировать таблицу</button>
-	</div>
-	<div id = "table" style = "margin-top: 20px; margin-left: 20px;"></div>
-	<div style = "margin-top: 20px; margin-left: 20px;">
-		  	<table id = "table1">
-			  	<thead class = "simple_thead">
-				    <tr>
-				      <th scope = "col">Pet</th>
-				      <th scope = "col">Name</th>	
-				    </tr>
-			  	</thead>
-			  	<tbody>
-				    <tr>
-				      <td>Cat</td>
-				      <td>Murzik</td>
-				    </tr>
-				    <tr>
-				      <td>Dog</td>
-				      <td>Bobik</td>
-				    </tr>
-				    <tr>
-				      <td>Bird</td>
-				      <td>Nikolay</td>
-				    </tr>
-			  	</tbody>
-			</table>
-		</div>
+		<!-- Место куда должна вставляться таблица -->
+		<div id="container-table-with-init-data"></div>
+		<div id="container-table-second"></div>
+		<div id="container-table-third"></div>
+
 <script src = "script.js"></script>		
 </body>
 
