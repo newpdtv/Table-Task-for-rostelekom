@@ -1,51 +1,25 @@
 class Table {
-	constructor(pet, name, tableid, data) {
-		this.data = 
-			[{pet: "Cat", name: 'Murzik'},
-    		{pet: "Frog", name: 'Franz'},
-    		{pet: "Turtle", name: 'Dmitry'},
-    		{pet: "Dog", name: 'Bobik' }]
-		this.pet = pet
-		this.name = name
-		this.tableID = tableid
+	constructor(data, element, addRowMassive) {
+		this.data = data
+		this.element = element
+		//addRowMassive - массив с данными, которые передаются в метод AddRow
+		this.addRowMassive = addRowMassive
 	}
-	AddRow(tableid, pet, name) {
-		const tableRef = document.getElementById(tableid)
-		const newRow = tableRef.insertRow(1)
-		const newCell_pet = newRow.insertCell(0)
-		const newCell_name = newRow.insertCell(1)
-		const newText_pet = document.createTextNode(this.pet)
-		const newText_name = document.createTextNode(this.name)
-		newCell_pet.appendChild(newText_pet)
-		newCell_name.appendChild(newText_name)
-	}
-	DeleteRow(tableid) {
-		try{
-			let deletable_row = window.prompt("Какую именно строку необходимо удалить? Отсчёт идёт с нуля.", "0")
-			document.getElementById(tableid).deleteRow(deletable_row)
-		} catch {
-			alert("Данная строка не существует")
-		}	
-	}
-	UpdateRow(tableid) {
-		let rowNumber = window.prompt("Введите номер строки, начиная с 0", "0")
-		let cellNumber = window.prompt("Введите номер колонки, начиная с 0", "0")
-		let newData = window.prompt("Введите новые данные")  
-		let x = document.getElementById(tableid).rows[parseInt(rowNumber, 10)].cells
-		x[parseInt(cellNumber, 10)].innerHTML = newData
-	}
-	RenderTable(data){
-		let myTable = document.querySelector('#table');
-		let headers = ['Pet', 'Name'];
+	RenderTable(data, element) {
+		let myTable = this.element;
+		//создание таблицы и заголовков
     	let table = document.createElement('table');
-    	let headerRow = document.createElement('tr');
-    	headers.forEach(headerText => {
-        let header = document.createElement('th');
-        let textNode = document.createTextNode(headerText);
-        header.appendChild(textNode);
-        headerRow.appendChild(header);
-    	});
-    	table.appendChild(headerRow);
+    	const thead = document.createElement('thead');
+		const theadRow = document.createElement('tr');
+		const propNames = Object.getOwnPropertyNames(this.data[0]);
+		propNames.forEach(propName => {
+			const th = document.createElement('th');
+			th.textContent = propName;
+			theadRow.appendChild(th);
+		});
+		thead.appendChild(theadRow);
+		table.appendChild(thead);
+		//создание столбцов и ячеек
     	this.data.forEach(emp => {
         let row = document.createElement('tr');
         Object.values(emp).forEach(text => {
@@ -58,22 +32,52 @@ class Table {
     });
     myTable.appendChild(table);
 	};
+	AddRow(element, addRowMassive) {
+		let Table = this.element;
+		//создание новых ячеек, столбцов, их заполнение
+		this.addRowMassive.forEach(emp => {
+        let new_row = document.createElement('tr');
+        Object.values(emp).forEach(text => {
+        let cell = document.createElement('td');
+        let textNode = document.createTextNode(text);
+        cell.appendChild(textNode);
+        new_row.appendChild(cell);	
+        	})
+        //создание кнопки с функцией, которая удаляет ближайший new_row
+        let delete_button = document.createElement("button")
+        delete_button.innerHTML = "Delete"
+        delete_button.onclick = function() {
+        	new_row.closest("tr").remove()
+        }
+        new_row.appendChild(delete_button)
+        Table.appendChild(new_row);
+        })
+	}
 }
 
-let mytable = new Table("Turtle", "Dima", "table1")
+let myMainTable = new Table(
+	[
+		{Pet: 'Собака', Name: 'Тузик'},
+		{Pet: 'Собака', Name: 'Барон'},
+		{Pet: 'Кот', Name: 'Мурзик'}
+	], document.getElementById('container-table-with-init-data'), 
+	[{Pet: "Птица", Name: "Антон"}]);
 
-function DeleteRow() {
-	mytable.DeleteRow("table1")
+//кнопки, вызывающие render и addrow методы
+let  render_button = document.createElement( "button" )
+const text = document.createTextNode( "Render" )
+render_button.appendChild( text )                  
+document.body.appendChild( render_button )
+
+render_button.onclick = function() {
+	myMainTable.RenderTable()
 }
 
-function UpdateRow() {
-	mytable.UpdateRow("table1")
-}
+let add_button = document.createElement( "button" )
+const text_for_add = document.createTextNode( "Add Row" )
+add_button.appendChild(text_for_add)                  
+document.body.appendChild(add_button)
 
-function AddRow() {
-	mytable.AddRow("table1")
-}
-
-function RenderTable() {
-	mytable.RenderTable()
+add_button.onclick = function() {
+	myMainTable.AddRow()
 }
